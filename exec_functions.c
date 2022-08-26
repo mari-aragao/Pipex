@@ -6,7 +6,7 @@
 /*   By: maragao <maragao@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 17:49:00 by maragao           #+#    #+#             */
-/*   Updated: 2022/08/25 17:51:32 by maragao          ###   ########.rio      */
+/*   Updated: 2022/08/26 18:18:29 by maragao          ###   ########.rio      */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,11 @@ void    get_paths(char **paths, char **envp)
     {
         if (ft_strncmp(envp[i], "PATH=", 5) == 0)
         {
-            paths = ft_split(envp[i + 5], ':');
+			puts("1");
+            paths = ft_split(envp[i] + 5, ':');
             if (!paths)
 				error_msg("Allocaton error:");
+
             i = 0;
             while (paths[i] != 0)
             {
@@ -57,6 +59,7 @@ void    exec_function(char *cmd, char **envp)
     while (paths[i] != 0)
     {
         temp_path = (ft_strjoin (paths[i], cmd_name));
+		printf("%s\n", temp_path);
         if (!temp_path)
 			error_msg("Allocation error");
         if (access(temp_path, F_OK | X_OK) == 0)
@@ -66,3 +69,11 @@ void    exec_function(char *cmd, char **envp)
     }
     error_msg("Execution error:");
 }
+/*
+int main(int argc, char **argv, char **envp)
+{
+	char *cmd = argv[1];
+	(void) argc;
+	exec_function(cmd, envp);
+	return 0;
+}*/

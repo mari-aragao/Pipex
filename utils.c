@@ -6,7 +6,7 @@
 /*   By: maragao <maragao@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 17:48:37 by maragao           #+#    #+#             */
-/*   Updated: 2022/08/25 18:14:02 by maragao          ###   ########.rio      */
+/*   Updated: 2022/08/26 17:43:39 by maragao          ###   ########.rio      */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,15 +87,14 @@ char	*ft_strjoin(char *s1, char *s2)
 	char	*ptr;
 	int		i;
 	
-	ptr = (char *) malloc(ft_strlen(s1) + ft_strlen(s2) + 1);
+	ptr = malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
 	if (!ptr)
 		error_msg("Allocation Error");
 	i = 0;
-	while (*s1 != 0)
+	while (s1[i] != 0)
 	{
-		ptr[i] = *s1;
+		ptr[i] = s1[i];
 		i++;
-		s1++;
 	}
 	while (*s2 != 0)
 	{
@@ -104,6 +103,6 @@ char	*ft_strjoin(char *s1, char *s2)
 		s2++;
 	}
 	ptr[i] = 0;
-	free (s1);
+	free(s1);
 	return (ptr);
 }
