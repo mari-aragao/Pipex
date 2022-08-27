@@ -6,7 +6,7 @@
 /*   By: maragao <maragao@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 17:50:34 by maragao           #+#    #+#             */
-/*   Updated: 2022/08/25 17:50:21 by maragao          ###   ########.rio      */
+/*   Updated: 2022/08/27 15:13:54 by maragao          ###   ########.rio      */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ char	**ft_split(char *s, char c);
 int		ft_strncmp(char *s1, char *s2, size_t n);
 size_t	ft_strlen(char *s);
 char	*ft_strjoin(char *s1, char *s2);
-void    get_paths(char **paths, char **envp);
+char	**get_paths(char **paths, char **envp);
 void    exec_function(char *cmd, char **envp);
 void	error_msg(const char *str);
 

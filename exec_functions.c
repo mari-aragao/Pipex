@@ -6,13 +6,13 @@
 /*   By: maragao <maragao@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 17:49:00 by maragao           #+#    #+#             */
-/*   Updated: 2022/08/26 18:18:29 by maragao          ###   ########.rio      */
+/*   Updated: 2022/08/27 15:14:19 by maragao          ###   ########.rio      */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
-
-void    get_paths(char **paths, char **envp)
+#include <stdio.h>
+char    **get_paths(char **paths, char **envp)
 {
     int     i;
 
@@ -21,11 +21,9 @@ void    get_paths(char **paths, char **envp)
     {
         if (ft_strncmp(envp[i], "PATH=", 5) == 0)
         {
-			puts("1");
             paths = ft_split(envp[i] + 5, ':');
             if (!paths)
 				error_msg("Allocaton error:");
-
             i = 0;
             while (paths[i] != 0)
             {
@@ -34,14 +32,15 @@ void    get_paths(char **paths, char **envp)
                     error_alloc(paths, i);
                 i++;
             }
-            return ;
+            return (paths);
         }
         i++;
     }
-    error_msg("Execution error:");
+	error_msg("Execution error:");
+	return(NULL);
 }
 
-void    exec_function(char *cmd, char **envp)
+void   exec_function(char *cmd, char **envp)
 {
     char    **args;
     char    **paths;
@@ -49,28 +48,33 @@ void    exec_function(char *cmd, char **envp)
     char    *temp_path;
     int     i;
 
+
     args = ft_split(cmd, ' ');
 	if (!args)
         error_msg("Allocation Error: ");
     cmd_name = args[0];
 	paths = NULL;
-	get_paths(paths, envp);
+	paths = get_paths(paths, envp);
+	//if(!paths)
+		//error;
     i = 0;
     while (paths[i] != 0)
     {
         temp_path = (ft_strjoin (paths[i], cmd_name));
-		printf("%s\n", temp_path);
         if (!temp_path)
 			error_msg("Allocation error");
-        if (access(temp_path, F_OK | X_OK) == 0)
-            execve(temp_path, args, NULL);
+        if (access(temp_path, X_OK) == 0)
+		{
+			//free paths
+			execve(temp_path, args, envp);
+		}
         free(temp_path);
         i++;
     }
     error_msg("Execution error:");
 }
 /*
-int main(int argc, char **argv, char **envp)
+int main(int argc, char **argv, char **envpp)
 {
 	char *cmd = argv[1];
 	(void) argc;
