@@ -6,16 +6,16 @@
 /*   By: maragao <maragao@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 17:48:37 by maragao           #+#    #+#             */
-/*   Updated: 2022/08/26 17:43:39 by maragao          ###   ########.rio      */
+/*   Updated: 2022/08/27 15:27:12 by maragao          ###   ########.rio      */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-char 	*strdup_mod(char *s, int n)
+char	*strdup_mod(char *s, int n)
 {
-	int 	i;
-	char 	*ptr;
+	int		i;
+	char	*ptr;
 
 	ptr = (char *)malloc((n + 1) * sizeof(char));
 	if (!ptr)
@@ -32,10 +32,10 @@ char 	*strdup_mod(char *s, int n)
 
 char	**ft_split(char *s, char c)
 {
-	char **mat;
-	int mat_size;
-	int i;
-	int mat_count;
+	char	**mat;
+	int		mat_size;
+	int		i;
+	int		mat_count;
 
 	i = 0;
 	mat_size = 1;
@@ -60,21 +60,21 @@ char	**ft_split(char *s, char c)
 	return (mat);
 }
 
-int		ft_strncmp(char *s1, char *s2, size_t n)
+int	ft_strncmp(char *s1, char *s2, size_t n)
 {
-	size_t i;
+	size_t	i;
 
 	i = 0;
 	if (n == 0)
 		return (0);
 	while (s1[i] == s2[i] && s1[i] && i < n - 1)
 		i++;
-	return (((unsigned char*)s1)[i] - ((unsigned char*)s2)[i]);
+	return (((unsigned char *)s1)[i] - ((unsigned char *)s2)[i]);
 }
 
 size_t	ft_strlen(char *s)
 {
-	size_t len;
+	size_t	len;
 
 	len = 0;
 	while (s[len] != 0)
@@ -86,7 +86,7 @@ char	*ft_strjoin(char *s1, char *s2)
 {
 	char	*ptr;
 	int		i;
-	
+
 	ptr = malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
 	if (!ptr)
 		error_msg("Allocation Error");

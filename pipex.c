@@ -6,23 +6,22 @@
 /*   By: maragao <maragao@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 17:48:52 by maragao           #+#    #+#             */
-/*   Updated: 2022/08/26 18:27:48 by maragao          ###   ########.rio      */
+/*   Updated: 2022/08/27 15:30:49 by maragao          ###   ########.rio      */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-int main(int argc, char **argv, char **envp)
+int	main(int argc, char **argv, char **envp)
 {
-	(void)envp;
 	if (argc == 5)
 		pipex(argv, envp);
-	else 
+	else
 		write(1, "Everything out of order", 23);
 	return (0);
 }
 
-void pipex(char **argv, char **envp)
+void	pipex(char **argv, char **envp)
 {
 	int		pipe_fd[2];
 	pid_t	pid1;
@@ -30,7 +29,6 @@ void pipex(char **argv, char **envp)
 
 	pipe(pipe_fd);
 	pid1 = fork();
-	
 	if (pid1 < 0)
 		error_msg("Fork error:");
 	if (pid1 == 0)
@@ -53,10 +51,7 @@ void pipex(char **argv, char **envp)
 void	child_one(char **argv, int *pipe_fd, char **envp)
 {
 	int	infile;
-	//char *buf;
 
-//	(void)envp;
-//	buf = malloc(50);
 	infile = open(argv[1], O_RDONLY);
 	if (infile < 0)
 		error_msg("Open error:");
@@ -65,26 +60,19 @@ void	child_one(char **argv, int *pipe_fd, char **envp)
 	close(infile);
 	dup2(pipe_fd[1], 1);
 	close(pipe_fd[1]);
-//	int bf = read(0, buf, 50);
-//	write(1, buf, bf);
 	exec_function(argv[2], envp);
 }
 
 void	child_two(char **argv, int *pipe_fd, char **envp)
 {
-	int outfile;
-//	char *buf;
+	int	outfile;
 
-//	(void)envp;
-//	buf = malloc(50);
-	outfile  = open(argv[4], O_CREAT | O_RDWR | O_TRUNC, 0664);
+	outfile = open(argv[4], O_CREAT | O_RDWR | O_TRUNC, 0664);
 	if (outfile < 0)
 		error_msg("Open error:");
 	dup2(outfile, STDOUT_FILENO);
 	dup2(pipe_fd[READ_END], STDIN_FILENO);
 	close(outfile);
 	close(pipe_fd[READ_END]);
-//	int bf = read(0, buf, 50);
-//	write(1, buf, bf);
 	exec_function(argv[3], envp);
 }

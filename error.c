@@ -6,7 +6,7 @@
 /*   By: maragao <maragao@student.42.rio>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 16:31:45 by maragao           #+#    #+#             */
-/*   Updated: 2022/08/25 18:17:37 by maragao          ###   ########.rio      */
+/*   Updated: 2022/08/27 15:22:03 by maragao          ###   ########.rio      */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@ void	error_alloc(char **mat, int i)
 	if (!mat)
 		error_msg("Allocation Error:");
 	while (--i >= 0)
-			free(mat[i]);
-		free(mat);
+		free(mat[i]);
+	free(mat);
 	error_msg("Allocation Error:");
 }
 
