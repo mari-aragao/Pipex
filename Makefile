@@ -1,4 +1,4 @@
-SRCS = pipex.c utils.c exec_functions.c error.c 
+SRCS = pipex.c utils.c utils2.c exec_functions.c error.c 
 
 OBJS = ${SRCS:.c=.o}
 
